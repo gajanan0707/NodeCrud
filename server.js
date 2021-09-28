@@ -43,11 +43,14 @@ app.delete("/api/post/:id", post.delete);
 //Create a rating
 app.post("/api/rating/:id", rating.createRating)
 // Retrieve all Rating
-// app.get("/api/:id", rating.findAllRatings);
+app.get("/api/rating/:id", rating.findAllRatings);
 // Retrieve rating by id
 app.get("/api/rating/:id", rating.findOne)
 // Update a post with id
 app.put("/api/rating/:id", rating.updateRating);
+// Delete a Post with id
+app.delete("/api/rating/:id", rating.deleteRating);
+
 
 require("./routes/routes.js")(app);
 

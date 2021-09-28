@@ -3,9 +3,15 @@ const Rating = db.ratings;
 const Op = db.Sequelize.Op;
 
 
-// Create and Save a new post
+// Create and Save a new Rating
 exports.createRating = (req, res) => {
     // Validate request
+    if(!req.params.id){
+        res.status(400).send({
+            message: "Post id can not be empty!"
+        });
+        return;
+    }
     if (!req.body.ratings) {
         res.status(400).send({
             message: "rating can not be empty!"
@@ -19,7 +25,7 @@ exports.createRating = (req, res) => {
         postId: req.params.id
     };
     console.log(ratingdata)
-    // Save Post in the database
+    // Save Rating in the database
     try {
         Rating.create(ratingdata)
             .then(data => {
@@ -42,7 +48,7 @@ exports.createRating = (req, res) => {
 // Retrieve all Rating from the database by postid.
 exports.findAllRatings = (req, res) => {
     Rating.findAll()
-        .then(data => {  
+        .then(data => {
             res.send(data);
         })
         .catch(err => {
@@ -68,7 +74,7 @@ exports.findOne = (req, res) => {
         });
 };
 
-// Update a Post by the id in the request
+// Update a Rating by the id in the request
 exports.updateRating = (req, res) => {
     const id = req.params.id;
     // Validate request
@@ -96,6 +102,32 @@ exports.updateRating = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message: "Error updating Rating with id=" + id
+            });
+        });
+};
+
+
+// Delete a Rating with the specified id in the request
+exports.deleteRating = (req, res) => {
+    const id = req.params.id;
+
+    Rating.destroy({
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Rating was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot Rating Post with id=${id}. Maybe Rating was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete Rating with id=" + id
             });
         });
 };

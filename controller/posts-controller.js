@@ -12,8 +12,15 @@ exports.create = (req, res) => {
         });
         return;
     }
+    if(!req.body.description){
+        res.status(400).send({
+            message: "description can not be empty!"
+        });
+        return;
+    }
 
-    // Create a Tutorial
+
+    // Create a Post
     const postdata = {
         title: req.body.title,
         description: req.body.description,
@@ -79,6 +86,12 @@ exports.update = (req, res) => {
         });
         return;
     }
+    if(!req.body.description){
+        res.status(400).send({
+            message: "description can not be empty!"
+        });
+        return;
+    }
 
     Post.update(req.body, {
         where: { id: id }
@@ -90,7 +103,7 @@ exports.update = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot update post with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+                    message: `Cannot update post with id=${id}. Maybe post was not found or req.body is empty!`
                 });
             }
         })
