@@ -34,8 +34,10 @@ app.post("/", post.create);
 app.get("/", post.findAll);
 // Retrieve a single Post with id
 app.get("/:id", post.findOne);
-// Update a post with id
+// Update a pst with id
 app.put("/:id", post.update);
+// Delete a Post with id
+app.delete("/:id", post.delete);
 
 require("./routes/routes.js")(app);
 
