@@ -57,14 +57,46 @@ exports.findAll = (req, res) => {
 // Find a single post with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
-  
+
     Post.findByPk(id)
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error retrieving post with id=" + id
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving post with id=" + id
+            });
         });
-      });
-  };
+};
+
+// Update a Post by the id in the request
+exports.update = (req, res) => {
+    const id = req.params.id;
+    // Validate request
+    if (!req.body.title) {
+        res.status(400).send({
+            message: "title can not be empty!"
+        });
+        return;
+    }
+
+    Post.update(req.body, {
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Post was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update post with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Post with id=" + id
+            });
+        });
+};

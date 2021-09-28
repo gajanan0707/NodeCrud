@@ -28,12 +28,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   console.log("Drop and re-sync db.");
 // });
 
-
+//create a post
 app.post("/", post.create);
 // Retrieve all Post
 app.get("/", post.findAll);
 // Retrieve a single Post with id
 app.get("/:id", post.findOne);
+// Update a post with id
+app.put("/:id", post.update);
 
 require("./routes/routes.js")(app);
 
