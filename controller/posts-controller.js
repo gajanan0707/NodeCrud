@@ -3,7 +3,7 @@ const Post = db.posts;
 const Op = db.Sequelize.Op;
 
 
-// Create and Save a new Tutorial
+// Create and Save a new post
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.title) {
@@ -38,3 +38,33 @@ exports.create = (req, res) => {
         });
     }
 };
+
+// Retrieve all post from the database.
+exports.findAll = (req, res) => {
+
+    Post.findAll()
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving post."
+            });
+        });
+};
+
+// Find a single post with an id
+exports.findOne = (req, res) => {
+    const id = req.params.id;
+  
+    Post.findByPk(id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving post with id=" + id
+        });
+      });
+  };

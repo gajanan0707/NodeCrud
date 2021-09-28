@@ -28,11 +28,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   console.log("Drop and re-sync db.");
 // });
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to application." });
-});
+
 app.post("/", post.create);
+// Retrieve all Post
+app.get("/", post.findAll);
+// Retrieve a single Post with id
+app.get("/:id", post.findOne);
+
 require("./routes/routes.js")(app);
 
 // set port, listen for requests
