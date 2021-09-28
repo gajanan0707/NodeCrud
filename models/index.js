@@ -19,5 +19,11 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.posts = require("./posts.js")(sequelize, Sequelize);
+db.ratings = require("./rating.models.js")(sequelize, Sequelize);
+db.posts.hasMany(db.ratings, { as: "ratings" });
+db.ratings.belongsTo(db.posts, {
+  foreignKey: "postId",
+  as: "posts",
+});
 
 module.exports = db;

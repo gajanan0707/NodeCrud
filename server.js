@@ -5,6 +5,7 @@ const db = require("./models/index");
 
 const app = express();
 const post = require("./controller/posts-controller");
+const rating = require("./controller/rating-controller");
 var corsOptions = {
   origin: "http://localhost:8000"
 };
@@ -38,7 +39,8 @@ app.get("/:id", post.findOne);
 app.put("/:id", post.update);
 // Delete a Post with id
 app.delete("/:id", post.delete);
-
+//Create a rating
+app.post("/api/:id", rating.createRating)
 require("./routes/routes.js")(app);
 
 // set port, listen for requests
