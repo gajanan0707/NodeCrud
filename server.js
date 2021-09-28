@@ -30,17 +30,25 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // });
 
 //create a post
-app.post("/", post.create);
+app.post("/api/post/", post.create);
 // Retrieve all Post
-app.get("/", post.findAll);
+app.get("/api/post/", post.findAll);
 // Retrieve a single Post with id
-app.get("/:id", post.findOne);
+app.get("/api/post/:id", post.findOne);
 // Update a pst with id
-app.put("/:id", post.update);
+app.put("/api/post/:id", post.update);
 // Delete a Post with id
-app.delete("/:id", post.delete);
+app.delete("/api/post/:id", post.delete);
+
 //Create a rating
-app.post("/api/:id", rating.createRating)
+app.post("/api/rating/:id", rating.createRating)
+// Retrieve all Rating
+// app.get("/api/:id", rating.findAllRatings);
+// Retrieve rating by id
+app.get("/api/rating/:id", rating.findOne)
+// Update a post with id
+app.put("/api/rating/:id", rating.updateRating);
+
 require("./routes/routes.js")(app);
 
 // set port, listen for requests

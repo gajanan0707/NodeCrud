@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Rating = sequelize.define("ratings", {
-        rating: {
+        ratings: {
             type: Sequelize.INTEGER,
         }
     });
